@@ -1,4 +1,14 @@
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+
+public abstract class VehiculoGuerra extends ObjetoGrafico implements ObjetoMovible{
+    protected BufferedImage imagen;
+    protected Point2D.Double posicion = new Point2D.Double();
+    protected final double speed = 150.0;
+
+    //protected double worldX, worldY;
+
 import java.awt.image.BufferedImage;
 
 public abstract class VehiculoGuerra extends ObjetoGrafico implements ObjetoMovible{
@@ -22,5 +32,21 @@ public abstract class VehiculoGuerra extends ObjetoGrafico implements ObjetoMovi
     public abstract void update(double delta);
 
     public abstract void draw(Graphics2D g);
-    
+  
+    public abstract double getX();
+
+    public abstract double getY();
+
+    public abstract void update(double delta);
+
+    public abstract void draw(Graphics2D g);
+    /* 
+    public abstract double getWorldX ();
+
+    public abstract double  getWorldY ();
+
+    public abstract void setWorldX(double worldX);
+
+    public abstract void setWorldY(double worldY);
+    */
 }

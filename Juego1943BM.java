@@ -34,6 +34,10 @@ public class Juego1943BM extends JGame {
 
     AvionJugador p38;
 
+
+    Camara cam;
+
+
     public static void main(String[] args) {
 
         Juego1943BM game = new Juego1943BM();
@@ -52,12 +56,24 @@ public class Juego1943BM extends JGame {
     public void gameStartup() {
         
         try{
+
+
+            Mundo m=Mundo.getInstance();
+
             fondo= new Fondo("recursos/imagenes/FondoOceano2.png");
             
             BufferedImage imagenAvion = ImageIO.read(getClass().getResource("recursos/imagenes/AvionJugador.png"));
             p38 = new AvionJugador("recursos/imagenes/AvionJugador.png",imagenAvion);
 
             p38.setPosicion(getWidth() / 2,getHeight() / 2 );
+
+
+            cam =new Camara(0,0);
+
+            cam.setRegionVisible(640,480);
+
+            m.setLimitesMundo(fondo.getWidth(), fondo.getHeight());
+
         }
         catch(Exception e){
             e.printStackTrace();
@@ -97,11 +113,18 @@ public class Juego1943BM extends JGame {
 
         p38.update(delta);
 
+        cam.seguirPersonaje(p38);
+
     }
 
     public void gameDraw(Graphics2D g) {
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        Mundo m=Mundo.getInstance();
+
+        g.translate(cam.getX(),cam.getY());
+
         // contador 
         /*
     	dAhora= new Date( );
@@ -112,10 +135,17 @@ public class Juego1943BM extends JGame {
         g.drawImage(img_fondo,0,0,null);// imagen de fondo
         */
 
+
         fondo.display(g);
+        m.display(g);
+
+
+        fondo.display(g);
+
 
         p38.draw(g);
 
+        g.translate(-cam.getX(),-cam.getY());
         
     }
 

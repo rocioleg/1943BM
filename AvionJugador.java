@@ -7,10 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class AvionJugador extends VehiculoGuerra {
-    BufferedImage imagen=null;
-    Point2D.Double posicion  = new Point2D.Double();
-    final double speed = 150.0;
-
     public AvionJugador(String filename, BufferedImage imagen) {
         super(filename);
         this.imagen = imagen;
@@ -53,7 +49,6 @@ public class AvionJugador extends VehiculoGuerra {
 
     @Override
     public void update(double delta) {
-                 
+        Mundo m = Mundo.getInstance();    
     }
-
 }
