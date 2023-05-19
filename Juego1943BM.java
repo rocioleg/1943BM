@@ -28,11 +28,13 @@ public class Juego1943BM extends JGame {
 	Date dInit = new Date();
 	Date dAhora;
 	SimpleDateFormat ft = new SimpleDateFormat ("mm:ss");
-	final double NAVE_DESPLAZAMIENTO=150.0;
+	final double speed=150.0;
 
-    BufferedImage img_fondo = null;
-    
-    Personaje ovni=new Personaje();
+    Fondo fondo;
+
+    AvionJugador p38;
+
+    Camara cam;
 
     public static void main(String[] args) {
 
@@ -50,45 +52,50 @@ public class Juego1943BM extends JGame {
     }
 
     public void gameStartup() {
-
+        
         try{
-            img_fondo= ImageIO.read(getClass().getResource("recursos/imagenes/FondoOceano2.png"));
-            ovni.setImagen(ImageIO.read(getClass().getResource("recursos/imagenes/AvionJugador.png")));
-            ovni.setPosicion(getWidth() / 2,getHeight() / 2 );
+
+            Mundo m=Mundo.getInstance();
+
+            fondo= new Fondo("recursos/imagenes/FondoOceano2.png");
+            
+            BufferedImage imagenAvion = ImageIO.read(getClass().getResource("recursos/imagenes/AvionJugador.png"));
+            p38 = new AvionJugador("recursos/imagenes/AvionJugador.png",imagenAvion);
+
+            p38.setPosicion(getWidth() / 2,getHeight() / 2 );
+
+            cam =new Camara(0,0);
+
+            cam.setRegionVisible(640,480);
+
+            m.setLimitesMundo(fondo.getWidth(), fondo.getHeight());
         }
         catch(Exception e){
-
+            e.printStackTrace();
         }
        
+
     }
 
     public void gameUpdate(double delta) {
+        
         Keyboard keyboard = this.getKeyboard();
-         
-        // Procesar teclas de direccion
+         // Procesar teclas de direccion
         if (keyboard.isKeyPressed(KeyEvent.VK_UP)){
-            ovni.setY( ovni.getY() - NAVE_DESPLAZAMIENTO * delta);
-            //shipY -= NAVE_DESPLAZAMIENTO * delta;
+            p38.setY( p38.getY() - speed * delta);
         }
 
         if (keyboard.isKeyPressed(KeyEvent.VK_DOWN)){
-            //shipY += NAVE_DESPLAZAMIENTO * delta;
-            ovni.setY( ovni.getY() + NAVE_DESPLAZAMIENTO * delta);
+            p38.setY( p38.getY() + speed * delta);
         }
 
         if (keyboard.isKeyPressed(KeyEvent.VK_LEFT)){
-            ///shipX -= NAVE_DESPLAZAMIENTO * delta;
-            ovni.setX( ovni.getX() - NAVE_DESPLAZAMIENTO * delta);
+            p38.setX( p38.getX() - speed * delta);
         }
 
         if (keyboard.isKeyPressed(KeyEvent.VK_RIGHT)){
-            //shipX += NAVE_DESPLAZAMIENTO * delta;
-            ovni.setX( ovni.getX() + NAVE_DESPLAZAMIENTO * delta);
+            p38.setX( p38.getX() + speed * delta);
         }
-         
-
-
-
         // Esc fin del juego
         LinkedList < KeyEvent > keyEvents = keyboard.getEvents();
         for (KeyEvent event: keyEvents) {
@@ -99,83 +106,37 @@ public class Juego1943BM extends JGame {
         }
 
 
-        ovni.update(delta);
+        p38.update(delta);
+
+        cam.seguirPersonaje(p38);
 
     }
 
     public void gameDraw(Graphics2D g) {
 
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        Mundo m=Mundo.getInstance();
+
+        g.translate(cam.getX(),cam.getY());
+        // contador 
+        /*
     	dAhora= new Date( );
     	long dateDiff = dAhora.getTime() - dInit.getTime();
     	long diffSeconds = dateDiff / 1000 % 60;
 		long diffMinutes = dateDiff / (60 * 1000) % 60;
 
-
         g.drawImage(img_fondo,0,0,null);// imagen de fondo
-        /* 
-        //sombra
-        g.setColor(Color.black);
-        g.drawString("Tiempo de Juego: "+diffMinutes+":"+diffSeconds,12,42);
-        g.drawString("Tecla ESC = Fin del Juego ",592,42);
-
-    	g.setColor(Color.white);
-    	g.drawString("Tiempo de Juego: "+diffMinutes+":"+diffSeconds,10,40);
-		g.drawString("Tecla ESC = Fin del Juego ",590,40);
         */
+
+        fondo.display(g);
+        m.display(g);
+        p38.draw(g);
+
+        g.translate(-cam.getX(),-cam.getY());
         
-        ovni.draw(g);
-
-
-
-
-        
-
-
-
     }
 
     public void gameShutdown() {
        //Log.info(getClass().getSimpleName(), "Shutting down game");
-    }
-}
-
-class Personaje{
-
-    BufferedImage imagen=null;
-    private Point2D.Double posicion  = new Point2D.Double();
-
-    public Personaje(){
-
-    }
-
-    public void setImagen(BufferedImage img){
-        this.imagen=img;
-
-    }
-
-    public void setPosicion(double x, double y){
-        posicion.setLocation(x, y);
-    }
-
-    public void setX(double x){
-        posicion.x=x;
-    }
-
-    public void setY(double y){
-        posicion.y=y;
-    }
-    public double getX(){
-        return posicion.getX(); 
-    }
-
-    public double getY(){
-        return posicion.getY(); 
-    }
-    public void update(double delta){
-
-    }
-
-    public void draw(Graphics2D g){
-        g.drawImage(imagen,(int)posicion.getX(),(int)posicion.getY(),null);
     }
 }
