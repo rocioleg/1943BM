@@ -9,7 +9,10 @@ public abstract class VehiculoGuerra extends ObjetoGrafico implements ObjetoMovi
 
     //protected double worldX, worldY;
 
+import java.awt.image.BufferedImage;
 
+public abstract class VehiculoGuerra extends ObjetoGrafico implements ObjetoMovible{
+    
     public VehiculoGuerra(String filename) {
         super(filename);
     }
@@ -22,6 +25,14 @@ public abstract class VehiculoGuerra extends ObjetoGrafico implements ObjetoMovi
 
     public abstract void setY(double y);
     
+    public abstract double getX();
+
+    public abstract double getY();
+
+    public abstract void update(double delta);
+
+    public abstract void draw(Graphics2D g);
+  
     public abstract double getX();
 
     public abstract double getY();

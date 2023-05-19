@@ -34,7 +34,9 @@ public class Juego1943BM extends JGame {
 
     AvionJugador p38;
 
+
     Camara cam;
+
 
     public static void main(String[] args) {
 
@@ -55,6 +57,7 @@ public class Juego1943BM extends JGame {
         
         try{
 
+
             Mundo m=Mundo.getInstance();
 
             fondo= new Fondo("recursos/imagenes/FondoOceano2.png");
@@ -64,11 +67,13 @@ public class Juego1943BM extends JGame {
 
             p38.setPosicion(getWidth() / 2,getHeight() / 2 );
 
+
             cam =new Camara(0,0);
 
             cam.setRegionVisible(640,480);
 
             m.setLimitesMundo(fondo.getWidth(), fondo.getHeight());
+
         }
         catch(Exception e){
             e.printStackTrace();
@@ -115,9 +120,11 @@ public class Juego1943BM extends JGame {
     public void gameDraw(Graphics2D g) {
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         Mundo m=Mundo.getInstance();
 
         g.translate(cam.getX(),cam.getY());
+
         // contador 
         /*
     	dAhora= new Date( );
@@ -128,8 +135,14 @@ public class Juego1943BM extends JGame {
         g.drawImage(img_fondo,0,0,null);// imagen de fondo
         */
 
+
         fondo.display(g);
         m.display(g);
+
+
+        fondo.display(g);
+
+
         p38.draw(g);
 
         g.translate(-cam.getX(),-cam.getY());

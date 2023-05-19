@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class AvionJugador extends VehiculoGuerra {
-    
     public AvionJugador(String filename, BufferedImage imagen) {
         super(filename);
         this.imagen = imagen;
@@ -50,27 +49,6 @@ public class AvionJugador extends VehiculoGuerra {
 
     @Override
     public void update(double delta) {
-        Mundo m = Mundo.getInstance();
+        Mundo m = Mundo.getInstance();    
     }
-    /* 
-    @Override
-    public int getWorldX (){
-        this.worldX;
-    }
-
-    @Override
-    public double getWorldY (){
-        this.worldY;
-    }
-
-    @Override
-    public void setWorldX(double worldX){
-        this.worldX = worldX;
-    }
-
-    @Override
-    public void setWorldY(double worldY){
-        this.worldY = worldY;
-    }
-    */
 }
