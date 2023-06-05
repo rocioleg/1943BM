@@ -11,7 +11,7 @@ public class Camara {
 
 	public void seguirPersonaje(AvionJugador obj){
 		Mundo m=Mundo.getInstance();
-		//this.x = -b.getX()+(m.getWidth()/8);
+		//this.x = -b.getX()+(m.getWidth()/8); 
 		this.y = -obj.getY()+resY/2;
 		if (this.x > 0) {
 			this.x = 0;
@@ -21,16 +21,17 @@ public class Camara {
 			this.x = -(m.getHeight() - resX);
 		}
 
-
 	}
 	public void setViewPort(double x,double resY){
 		setRegionVisible(x,y);
 	}
+	 
 	public void setRegionVisible(double x,double y){
 		resX=x;
 		resY=y;
 	}
-    public void setX(double x){
+
+	public void setX(double x){
     	this.x=x;
 
     }

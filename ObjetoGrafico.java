@@ -5,11 +5,16 @@ import java.awt.image.*;
 import javax.imageio.*;
 import java.io.*;
 
-public class ObjetoGrafico {
-	protected BufferedImage imagen = null;
+public abstract class ObjetoGrafico {
+	protected BufferedImage imagen;
+	protected Point2D.Double posicion = new Point2D.Double();
+	protected double positionX = 0;
+	protected double positionY = 0;
 
-	double positionX = 0;
-	double positionY = 0;
+	protected boolean collision = false;
+	public boolean collisionON;
+
+	protected Rectangle solidArea;
 	
     public ObjetoGrafico(String filename) {
     		try {
@@ -20,28 +25,34 @@ public class ObjetoGrafico {
 			}
     }
 
-	public int getWidth(){
-		return imagen.getWidth();
-	}
-	public int getHeight(){
+	public abstract int getWidth();
+		//return imagen.getWidth();
+	
+	public abstract int getHeight();
+		//return imagen.getHeight();
+	
+		
+    public abstract void setPosicion(double x, double y);
 
-		return imagen.getHeight();
-	}
+   	public abstract void display(Graphics2D g2);
+		//g2.drawImage(imagen,(int) this.positionX,(int) this.positionY,null);
+	
+	public abstract void draw(Graphics2D g);
 
-	public void setPosition(int x,int y){
-		this.positionX = x;
-		this.positionY = y;
-	}
+	public abstract double getX();
+		//return positionX;
+	
 
-   	public void display(Graphics2D g2) {
-		g2.drawImage(imagen,(int) this.positionX,(int) this.positionY,null);
-  	}
+	public abstract double getY();
+		//return positionY;
 
-	public double getX(){
-		return positionX;
-	}
+	public abstract BufferedImage getImage();
+		// return this.imagen;
 
-	public double getY(){
-		return positionY;
+    public abstract void update(double delta);
+
+
+	public void checkTile(ObjetoGrafico obj){
+		
 	}
 }

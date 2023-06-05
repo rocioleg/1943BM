@@ -3,8 +3,8 @@ import java.awt.geom.*;
 
 public class Mundo {
     
-    private static final int ANCHO_MUNDO=640*13;
-    private static final int ALTO_MUNDO=480;
+    private static final int ANCHO_MUNDO= 1579;
+    private static final int ALTO_MUNDO= 8480;
 
     private static Mundo INSTANCE = null;
 
@@ -41,7 +41,7 @@ public class Mundo {
   public boolean contains(int x, int y, int w,  int h){
   	return mundo.contains(x,y,w,h);
   }
-
+  
   public void setLimitesMundo(int w,int h){
     mundo=new Rectangle2D.Double(0,0,w,h);
 	}
